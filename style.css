@@ -24,3 +24,18 @@
 {
     width: 100%;
 }
+
+.flex-item-selected
+{
+    background-color: #cfe3ff;
+}
+
+.flex-item-selected .checkbox
+{
+    content: url("images/checked.png");
+}
+
+.flex-item-unselected
+{
+    opacity: 0.6;
+}
