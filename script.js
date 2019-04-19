@@ -20,21 +20,46 @@ for(const item of items)
 
 function beSelect(event) {
     const container = event.currentTarget;
+
+    for(let item of items)
+    {
+        let thisType=item.dataset.choiceId+item.dataset.questionId;
+
+        if(allItem[thisType].QID===container.dataset.questionId)
+        {
+            if(allItem[thisType].selected === false)
+            {
+                item.classList.remove('flex-item-unselected');
+            }
+            else if(allItem[thisType].selected === true)
+            {
+                item.classList.remove('flex-item-selected');
+                allItem[thisType].selected = false ;
+            }
+        }
+
+
+    }
+
     container.classList.add('flex-item-selected');
     allItem[container.dataset.choiceId+container.dataset.questionId].selected = true ;
-    beGray();
+    beGray(event);
 }
 
-function beGray() {
+function beGray(event) {
 
     console.log("be gray");
     for(let item of items)
     {
         let thisType=item.dataset.choiceId+item.dataset.questionId;
 
-        if(allItem[thisType].selected===false)
+        if(allItem[thisType].QID===event.currentTarget.dataset.questionId)
         {
-            item.classList.add('flex-item-unselected');
+            if(allItem[thisType].selected===false)
+            {
+                item.classList.add('flex-item-unselected');
+            }
         }
+
     }
 }
