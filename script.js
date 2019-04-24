@@ -5,6 +5,9 @@
 
 const items = document.querySelectorAll('.flex-item')
 var allItem = {} ;
+var fanswer = {} ;
+var fmax = null ;
+var finish = [0,0,0] ;
 
 for(const item of items)
 {
@@ -16,6 +19,11 @@ for(const item of items)
         QID:item.dataset.questionId,
         selected:false
     }
+
+    fanswer[item.dataset.choiceId] = {
+        cnt:0
+    }
+
 }
 
 function beSelect(event) {
@@ -35,6 +43,7 @@ function beSelect(event) {
             {
                 item.classList.remove('flex-item-selected');
                 allItem[thisType].selected = false ;
+                fanswer[item.dataset.choiceId].cnt-=1;
             }
         }
 
@@ -43,6 +52,50 @@ function beSelect(event) {
 
     container.classList.add('flex-item-selected');
     allItem[container.dataset.choiceId+container.dataset.questionId].selected = true ;
+    fanswer[container.dataset.choiceId].cnt+=1;
+
+    if(fmax===null)
+    {
+        fmax=container.dataset.choiceId;
+    }
+
+    console.log("fanswer:"+container.dataset.choiceId+":"+fanswer[container.dataset.choiceId].cnt);
+
+    if(allItem[container.dataset.choiceId+container.dataset.questionId].QID==="one")
+    {
+        finish[0]=1;
+
+        if(fanswer[container.dataset.choiceId].cnt===fanswer[fmax].cnt)
+        {
+            fmax = container.dataset.choiceId ;
+        }
+
+        console.log("fmax:"+fmax);
+    }
+    if(allItem[container.dataset.choiceId+container.dataset.questionId].QID==="two")
+    {
+        finish[1]=1;
+
+        console.log("fmax:"+fmax);
+    }
+    if(allItem[container.dataset.choiceId+container.dataset.questionId].QID==="three")
+    {
+        finish[2]=1;
+
+        console.log("fmax:"+fmax);
+    }
+
+    if(fanswer[container.dataset.choiceId].cnt>fanswer[fmax].cnt)
+    {
+        fmax === container.dataset.choiceId ;
+    }
+
+    if(finish[0]===1 && finish[1]===1 && finish[2]===1){
+        //anwser();
+        console.log("ANSWER:"+fmax);
+        //return;
+    }
+
     beGray(event);
 }
 
@@ -62,4 +115,10 @@ function beGray(event) {
         }
 
     }
+}
+
+
+function answer(){
+
+
 }
