@@ -155,7 +155,7 @@ function reset() {
             cnt:0
         }
 
-        fmax=null;
+        fmax = null;
         finish=[0,0,0];
 
         document.getElementById("title").innerHTML="";
