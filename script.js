@@ -9,6 +9,9 @@ var fanswer = {} ;
 var fmax = null ;
 var finish = [0,0,0] ;
 
+const restart = document.querySelector('.reset')
+restart.addEventListener('click',reset);
+
 for(const item of items)
 {
     item.addEventListener('click',beSelect);
@@ -91,7 +94,7 @@ function beSelect(event) {
     }
 
     if(finish[0]===1 && finish[1]===1 && finish[2]===1){
-        //anwser();
+        answer();
         console.log("ANSWER:"+fmax);
         //return;
     }
@@ -120,5 +123,46 @@ function beGray(event) {
 
 function answer(){
 
+    document.getElementById("title").innerHTML="You got: "+RESULTS_MAP[fmax].title;
+    document.getElementById("contents").innerHTML=RESULTS_MAP[fmax].contents;
+    document.getElementById("reset").style.display="";
+
+    for(let item of items)
+    {
+        item.removeEventListener('click',beSelect);
+    }
 
 }
+
+
+function reset() {
+
+    for(let item of items)
+    {
+        item.addEventListener('click',beSelect);
+
+        allItem[item.dataset.choiceId+item.dataset.questionId] = {
+            type:item.dataset.choiceId+item.dataset.questionId,
+            CID:item.dataset.choiceId,
+            QID:item.dataset.questionId,
+            selected:false
+        }
+
+        item.classList.remove('flex-item-unselected');
+        item.classList.remove('flex-item-selected');
+
+        fanswer[item.dataset.choiceId] = {
+            cnt:0
+        }
+
+        fmax=null;
+        finish=[0,0,0];
+
+        document.getElementById("title").innerHTML="";
+        document.getElementById("contents").innerHTML="";
+        document.getElementById("reset").style.display="none";
+
+    }
+
+}
+
