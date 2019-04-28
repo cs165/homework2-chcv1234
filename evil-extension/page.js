@@ -12,6 +12,47 @@ const MATCH_LIST = {
 
 function transformTextNodes(node) {
   // TODO(you): Implement this function! See HW spec for details.
+    let text = [];
+    let search ;
+
+    if(node.nodeType === Node.TEXT_NODE)
+    {
+      for(search of node.textContent.split(" "))
+      {
+        console.log("PRE : "+ search);
+
+        for(let change of Object.keys(MATCH_LIST))
+        {
+          if(search === change+"\n" || search === change)
+          {
+            search = MATCH_LIST[change];
+
+            console.log("CHA : "+ search);
+
+            break;
+          }
+
+          console.log("NO change");
+        }
+
+        text = text + search + ' ';
+        console.log("Now : "+ text);
+      }
+
+      node.textContent = text ;
+
+    }
+
+    for(const skip of node.childNodes)
+    {
+      if(skip === "script" || skip === "style")
+      {
+        continue;
+      }
+      transformTextNodes(skip);
+    }
+
+
 }
 
 transformTextNodes(document.body);
