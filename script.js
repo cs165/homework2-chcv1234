@@ -55,7 +55,7 @@ function beSelect(event) {
 
     container.classList.add('flex-item-selected');
     allItem[container.dataset.choiceId+container.dataset.questionId].selected = true ;
-    fanswer[container.dataset.choiceId].cnt+=1;
+    fanswer[container.dataset.choiceId].cnt += 1;
 
     if(fmax===null)
     {
@@ -68,7 +68,7 @@ function beSelect(event) {
     {
         finish[0]=1;
 
-        if(fanswer[container.dataset.choiceId].cnt===fanswer[fmax].cnt)
+        if(fanswer[container.dataset.choiceId].cnt === fanswer[fmax].cnt)
         {
             fmax = container.dataset.choiceId ;
         }
@@ -88,9 +88,9 @@ function beSelect(event) {
         console.log("fmax:"+fmax);
     }
 
-    if(fanswer[container.dataset.choiceId].cnt>fanswer[fmax].cnt)
+    if(fanswer[container.dataset.choiceId].cnt > fanswer[fmax].cnt)
     {
-        fmax === container.dataset.choiceId ;
+        fmax = container.dataset.choiceId ;
     }
 
     if(finish[0]===1 && finish[1]===1 && finish[2]===1){
@@ -161,8 +161,9 @@ function reset() {
         document.getElementById("title").innerHTML="";
         document.getElementById("contents").innerHTML="";
         document.getElementById("reset").style.display="none";
-
     }
+
+    document.getElementById("bar").scrollIntoView({behavior: "smooth" , block: "start"});
 
 }
 
